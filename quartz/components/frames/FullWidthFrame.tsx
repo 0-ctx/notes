@@ -26,12 +26,12 @@ export const FullWidthFrame: PageFrame = {
         <div class="center full-width">
           <div class="page-header">
             <Header {...componentData}>
-              {header.map((HeaderComponent) => (
+              {header.filter(Boolean).map((HeaderComponent) => (
                 <HeaderComponent {...componentData} />
               ))}
             </Header>
             <div class="popover-hint">
-              {beforeBody.map((BodyComponent) => (
+              {beforeBody.filter(Boolean).map((BodyComponent) => (
                 <BodyComponent {...componentData} />
               ))}
             </div>
@@ -39,12 +39,12 @@ export const FullWidthFrame: PageFrame = {
           <Content {...componentData} />
           <hr />
           <div class="page-footer">
-            {afterBody.map((BodyComponent) => (
+            {afterBody.filter(Boolean).map((BodyComponent) => (
               <BodyComponent {...componentData} />
             ))}
           </div>
         </div>
-        <Footer {...componentData} />
+        {Footer && <Footer {...componentData} />}
       </>
     )
   },

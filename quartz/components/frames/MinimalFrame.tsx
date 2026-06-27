@@ -16,7 +16,7 @@ export const MinimalFrame: PageFrame = {
         <div class="center minimal">
           <Content {...componentData} />
         </div>
-        <Footer {...componentData} />
+        {Footer && <Footer {...componentData} />}
       </>
     )
   },

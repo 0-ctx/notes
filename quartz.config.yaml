@@ -16,29 +16,29 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      header: Newsreader
+      body: Inter
+      code: JetBrains Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#fbfaf6"
+        lightgray: "#e9e2d8"
+        gray: "#b7aca0"
+        darkgray: "#3f413f"
+        dark: "#222322"
+        secondary: "#7a3d2b"
+        tertiary: "#2f6f64"
+        highlight: rgba(122, 61, 43, 0.12)
         textHighlight: "#fff23688"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#171716"
+        lightgray: "#353331"
+        gray: "#77706a"
+        darkgray: "#d9d2ca"
+        dark: "#f0ede7"
+        secondary: "#d08a73"
+        tertiary: "#8bbeb3"
+        highlight: rgba(208, 138, 115, 0.16)
         textHighlight: "#b3aa0288"
 plugins:
   - source: github:quartz-community/created-modified-date
@@ -144,11 +144,15 @@ plugins:
     enabled: true
   - source: github:quartz-community/explorer
     enabled: true
+    options:
+      folderDefaultState: open
+      folderClickBehavior: link
+      useSavedState: false
     layout:
       position: left
       priority: 50
   - source: github:quartz-community/graph
-    enabled: true
+    enabled: false
     layout:
       position: right
       priority: 10
@@ -170,6 +174,7 @@ plugins:
     layout:
       position: beforeBody
       priority: 10
+      condition: not-index
   - source: github:quartz-community/content-meta
     enabled: true
     layout:
@@ -181,10 +186,7 @@ plugins:
       position: beforeBody
       priority: 30
   - source: github:quartz-community/page-title
-    enabled: true
-    layout:
-      position: left
-      priority: 10
+    enabled: false
   - source: github:quartz-community/darkmode
     enabled: true
     layout:
@@ -192,17 +194,13 @@ plugins:
       priority: 30
       group: toolbar
   - source: github:quartz-community/reader-mode
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 35
       group: toolbar
   - source: github:quartz-community/breadcrumbs
-    enabled: true
-    layout:
-      position: beforeBody
-      priority: 5
-      condition: not-index
+    enabled: false
   - source: github:quartz-community/comments
     enabled: false
     options:
@@ -219,6 +217,26 @@ plugins:
         Discord Community:
   - source: github:quartz-community/recent-notes
     enabled: true
+    options:
+      limit: 5
+      showTags: false
+      hideTagPages: true
+      hideFolderPages: true
+    layout:
+      position: left
+      priority: 60
+      display: desktop-only
+  - source: github:quartz-community/recent-notes
+    enabled: true
+    options:
+      limit: 5
+      showTags: false
+      hideTagPages: true
+      hideFolderPages: true
+    layout:
+      position: afterBody
+      priority: 80
+      display: mobile-only
   - source: github:quartz-community/spacer
     enabled: true
     options: {}

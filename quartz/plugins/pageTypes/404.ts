@@ -23,7 +23,10 @@ export const NotFoundPageType: QuartzPageTypePlugin = () => ({
       {
         slug,
         title: notFound,
-        data: vfile.data,
+        data: {
+          ...vfile.data,
+          unlisted: true,
+        },
       },
     ]
   },

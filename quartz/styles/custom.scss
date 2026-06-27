@@ -1,3 +1,206 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+body[data-slug="index"] .page-header {
+  display: none;
+}
+
+body {
+  background-color: var(--light);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--dark) 8%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+body,
+button,
+input {
+  font-feature-settings: "cv05", "cv08", "ss03";
+}
+
+a {
+  color: var(--secondary);
+}
+
+.article-title,
+.page-title,
+h1,
+h2,
+h3 {
+  color: var(--dark);
+}
+
+.sidebar {
+  color: var(--darkgray);
+}
+
+.explorer .desktop-explorer {
+  cursor: default;
+  pointer-events: none;
+}
+
+.explorer .fold {
+  display: none;
+}
+
+.explorer.collapsed {
+  flex: 0 1 auto;
+}
+
+.explorer.collapsed > .explorer-content {
+  display: block;
+}
+
+.explorer .desktop-explorer h2,
+.recent-notes > h3 {
+  color: color-mix(in srgb, var(--dark) 78%, var(--secondary));
+  font-family: var(--headerFont);
+  font-size: 1.08rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+.explorer .desktop-explorer h2 {
+  margin: 0;
+}
+
+.recent-notes {
+  margin-top: 1.65rem;
+}
+
+.recent-notes > h3 {
+  margin: 0;
+}
+
+.recent-notes > ul.recent-ul {
+  margin-top: 0.65rem;
+}
+
+.recent-notes > ul.recent-ul > li {
+  margin: 0.65rem 0;
+}
+
+.recent-notes > ul.recent-ul > li .section > .desc > h3 {
+  margin: 0;
+  font-family: var(--bodyFont);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.32;
+}
+
+.recent-notes > ul.recent-ul > li .section > .desc > h3 > a {
+  color: color-mix(in srgb, var(--darkgray) 78%, var(--secondary));
+}
+
+.recent-notes > ul.recent-ul > li .section > .meta {
+  margin-top: 0.3rem;
+  font-size: 0.72rem;
+}
+
+.page-header .content-meta {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  width: fit-content;
+  margin: 0.5rem 0 0;
+  padding: 0.16rem 0.48rem;
+  border-radius: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--lightgray) 64%, transparent),
+    color-mix(in srgb, var(--lightgray) 28%, transparent) 62%,
+    transparent
+  );
+
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.page-header .content-meta time,
+.page-header .content-meta span {
+  color: inherit;
+  line-height: inherit;
+}
+
+.page-header .content-meta span::before {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-right: 0.35rem;
+  vertical-align: 0.12em;
+  content: "";
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--darkgray) 34%, transparent);
+}
+
+.center > hr {
+  display: none;
+}
+
+.index-hero {
+  position: relative;
+  isolation: isolate;
+  height: clamp(11rem, 26vh, 17rem);
+  margin: 5.5rem 0 2rem;
+  overflow: hidden;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse at 28% 32%, rgba(0, 0, 0, 0.36), transparent 18rem),
+    linear-gradient(135deg, #f5f5f2 0%, #cfcfca 54%, #efeee9 100%);
+  box-shadow: 0 18px 54px color-mix(in srgb, var(--dark) 11%, transparent);
+}
+
+.index-hero__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.index-hero::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.42), transparent 34%),
+    radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.18), transparent 58%);
+  mix-blend-mode: soft-light;
+}
+
+@media all and ($mobile) {
+  body {
+    min-height: 100dvh;
+  }
+
+  .page > #quartz-body .sidebar.left {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .page > #quartz-body .sidebar.left button,
+  .page > #quartz-body .sidebar.left .search,
+  .page > #quartz-body .sidebar.left .search-button {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .center > .mobile-only .recent-notes {
+    margin-top: 2.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid color-mix(in srgb, var(--dark) 12%, transparent);
+  }
+
+  .index-hero {
+    height: 12rem;
+    margin-top: 2rem;
+  }
+}
