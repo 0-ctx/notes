@@ -8,13 +8,14 @@ title: re:ctx
 
 _Nothing amazing ever happens here. Everything is ordinary._
 
+
+
 #### *Read log*
 
 
 * [x] [The Second Half - Shunyu Yao - 姚顺雨](https://ysymyth.github.io/The-Second-Half/) *
 
 
-> If novel methods are no longer needed and harder benchmarks will just get solved increasingly soon, what should we do?
 
 
 Why RL didn't work before? Why RL works now? ***Priors***.  
@@ -22,10 +23,10 @@ Scaling language pre-training gave us powerful priors. Yao mentions how this* ma
 
 **language reasoning as actions*
 
+AI's first half involved search for novel methods to hillclimb harder and harder benchmarks. Now The "recipe" is in place and is scaling well *so far*.  
+But "*If novel methods are no longer needed and harder benchmarks will just get solved increasingly soon, what should we do?*"
 
 > The second half of AI will shift focus from solving problems to defining problems. In this new era, evaluation becomes more important than training.
-
-AI's first half involved search for novel methods to hillclimb harder and harder benchmarks. Now The "recipe" is in place and is scaling well *so far*.
 
 
 - [x] [Scaling Laws, Honestly | Diogo Almeida](https://x.com/CompleteSkeptic/status/2073442518117884197)
@@ -33,7 +34,6 @@ AI's first half involved search for novel methods to hillclimb harder and harder
 Kaplan et al. trained all models on the fixed amount of data (~130B tokens) and used a learning rate schedule that zeroes. Former caused big models to not get enough data and later caused models to not train enough.
 
 [2406.12907](https://arxiv.org/abs/2406.12907), which tries to reconcile difference in results of two scaling lawa papers, is also inaccurate.
-
 
 
 Labs' equity vortex drying academia, closed research and not acknowledging wrong results... is a sad state of affairs.

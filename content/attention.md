@@ -25,3 +25,6 @@ tags:
                               recognized as the SAME
                               general family: "structured
                               state / linear recurrent models"
+
+
+- Qwen3.5: Nobody Agrees on Attention Anymore - https://huggingface.co/blog/mlabonne/qwen35
