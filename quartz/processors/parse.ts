@@ -3,7 +3,8 @@ import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { Processor, unified } from "unified"
 import { Root as MDRoot } from "remark-parse/lib"
-import { Root as HTMLRoot } from "hast"
+import { Element, Root as HTMLRoot, Text as HTMLText } from "hast"
+import { visit } from "unist-util-visit"
 import { MarkdownContent, ProcessedContent } from "../plugins/vfile"
 import { PerfTimer } from "../util/perf"
 import { read } from "to-vfile"
@@ -17,6 +18,108 @@ import { styleText } from "util"
 
 export type QuartzMdProcessor = Processor<MDRoot, MDRoot, MDRoot>
 export type QuartzHtmlProcessor = Processor<undefined, MDRoot, HTMLRoot>
+
+const taskListLabelClass = "task-list-label"
+const taskListLabelBlockTags = new Set([
+  "address",
+  "article",
+  "aside",
+  "blockquote",
+  "details",
+  "div",
+  "dl",
+  "fieldset",
+  "figure",
+  "footer",
+  "form",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "header",
+  "hr",
+  "main",
+  "menu",
+  "nav",
+  "ol",
+  "p",
+  "pre",
+  "section",
+  "table",
+  "ul",
+])
+
+const isElement = (node: unknown): node is Element =>
+  typeof node === "object" && node !== null && (node as { type?: unknown }).type === "element"
+
+const isText = (node: unknown): node is HTMLText =>
+  typeof node === "object" && node !== null && (node as { type?: unknown }).type === "text"
+
+const classList = (node: Element): string[] => {
+  const className = node.properties?.className
+  if (Array.isArray(className)) return className.map(String)
+  if (typeof className === "string") return className.split(/\s+/).filter(Boolean)
+  return []
+}
+
+const addClass = (node: Element, className: string) => {
+  const classes = classList(node)
+  if (!classes.includes(className)) {
+    node.properties = { ...node.properties, className: [...classes, className] }
+  }
+}
+
+const isCheckboxInput = (node: unknown): node is Element =>
+  isElement(node) && node.tagName === "input" && node.properties?.type === "checkbox"
+
+const isTaskLabelBoundary = (node: unknown) =>
+  isElement(node) && taskListLabelBlockTags.has(node.tagName)
+
+function wrapTaskListLabels() {
+  return (tree: HTMLRoot) => {
+    visit(tree, "element", (node) => {
+      if (!isElement(node) || node.tagName !== "li") return
+      if (!classList(node).includes("task-list-item")) return
+
+      const checkboxIndex = node.children.findIndex(isCheckboxInput)
+      if (checkboxIndex === -1) return
+
+      let labelStart = checkboxIndex + 1
+      while (true) {
+        const child = node.children[labelStart]
+        if (!isText(child) || child.value.trim() !== "") break
+        labelStart += 1
+      }
+
+      const firstLabelChild = node.children[labelStart]
+      if (isElement(firstLabelChild) && firstLabelChild.tagName === "p") {
+        addClass(firstLabelChild, taskListLabelClass)
+        return
+      }
+
+      if (isElement(firstLabelChild) && classList(firstLabelChild).includes(taskListLabelClass)) {
+        return
+      }
+
+      let labelEnd = labelStart
+      while (labelEnd < node.children.length && !isTaskLabelBoundary(node.children[labelEnd])) {
+        labelEnd += 1
+      }
+
+      if (labelEnd === labelStart) return
+
+      const labelChildren = node.children.slice(labelStart, labelEnd)
+      node.children.splice(labelStart, labelChildren.length, {
+        type: "element",
+        tagName: "span",
+        properties: { className: [taskListLabelClass] },
+        children: labelChildren,
+      })
+    })
+  }
+}
 
 export function createMdProcessor(ctx: BuildCtx): QuartzMdProcessor {
   const transformers = ctx.cfg.plugins.transformers
@@ -41,6 +144,7 @@ export function createHtmlProcessor(ctx: BuildCtx): QuartzHtmlProcessor {
       .use(remarkRehype, { allowDangerousHtml: true })
       // HTML AST -> HTML AST transforms
       .use(transformers.flatMap((plugin) => plugin.htmlPlugins?.(ctx) ?? []))
+      .use(wrapTaskListLabels)
   )
 }
 

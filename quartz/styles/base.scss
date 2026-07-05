@@ -172,7 +172,8 @@ a {
       padding-left: 0;
     }
 
-    & li:has(> input[type="checkbox"]:checked) {
+    & li:has(> input[type="checkbox"]:checked) > .task-list-label,
+    & li.is-checked > .task-list-label {
       text-decoration: line-through;
       text-decoration-color: var(--gray);
       color: var(--gray);
