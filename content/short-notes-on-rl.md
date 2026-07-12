@@ -66,7 +66,24 @@ $$
 
 ## GAE
 
-*TODO*
+***Why?***  
+REINFORCE's return-based advantage ($G_t - b(s_t)$) is unbiased but high-variance. A one-step TD (temporal difference) residual is the opposite: low-variance, biased. GAE provides a controllable trade-off between the two.
+
+***Key idea***  
+Exponentially-decay-weighted sum of TD residuals, controlled by $\lambda \in [0,1]$:
+
+$$ 
+\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) 
+$$
+
+$$ 
+\hat{A}_t^{GAE(\gamma,\lambda)} = \sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{t+l}
+$$
+
+- $\lambda = 0$ → just $\delta_t$ (low variance, high bias)
+- $\lambda = 1$ → collapses to $G_t - V(s_t)$, the REINFORCE-style advantage (high variance, low bias)
+
+Requires a learned critic $V(s)$, the exact component GRPO later removes.
 
 ## PPO
 
