@@ -1,6 +1,6 @@
 ---
 title: "Alternative Architectures"
-draft: false
+draft: true
 tags:
   - information-theory
 ---

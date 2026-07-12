@@ -1,10 +1,11 @@
 ---
 title: "LLM x Information Theory"
-draft: false
+draft: true
 tags:
   - information-theory
 ---
 
+- How much do language models memorize? https://arxiv.org/abs/2505.24832
 
 - Kaplan, J. et al. (2020). Scaling Laws for Neural Language Models. https://arxiv.org/abs/2001.08361
 - Delétang, G. et al. (2023/2024). Language Modeling Is Compression. ICLR 2024. https://arxiv.org/abs/2309.10668

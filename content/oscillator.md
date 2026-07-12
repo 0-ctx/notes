@@ -1,5 +1,6 @@
 ---
 title: Oscillatory Neural Network
+draft: true
 ---
 
 - Winfree Oscillatory Neural Network - https://jiawen-dai.github.io/WONN_Project_Page/
